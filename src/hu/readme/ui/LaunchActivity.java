@@ -1,6 +1,7 @@
 
-package hu.readme;
+package hu.readme.ui;
 
+import hu.readme.R;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
