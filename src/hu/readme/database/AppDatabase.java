@@ -45,8 +45,14 @@ public class AppDatabase extends SQLiteOpenHelper {
     
     private void copyDatabaseFile() throws IOException {
         final Context context = StaticContextApplication.getAppContext();
+        final File dbPath = context.getDatabasePath(DB_FILE);
+        if(dbPath.mkdirs()) {
+            dbPath.delete();
+            dbPath.createNewFile();
+        }
+        
         final InputStream input = context.getAssets().open(DB_FILE);
-        final OutputStream output = new FileOutputStream(context.getDatabasePath(DB_FILE));
+        final OutputStream output = new FileOutputStream(dbPath);
         
         Utils.copyStream(input, output);
         
