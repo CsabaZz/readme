@@ -2,5 +2,11 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android" 
     android:id="@+id/drawer_list_item" 
 	android:layout_width="match_parent" 
-	android:layout_height="match_parent" 
+	android:layout_height="@dimen/drawer_item_height" 
+	android:gravity="left|center_vertical" 
+	android:paddingLeft="12dp" 
+	android:singleLine="true" 
+	android:ellipsize="marquee" 
+	android:textColor="@color/drawer_item_text_color" 
+	android:textSize="@dimen/drawer_item_text_size"
 />

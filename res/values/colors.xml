@@ -1,0 +1,6 @@
+<resources>
+	<color name="white">@android:color/white</color>
+	<color name="black">@android:color/black</color>
+	
+	<color name="drawer_item_text_color">@color/black</color>
+</resources>
