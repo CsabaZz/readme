@@ -96,7 +96,7 @@ public class StaticContextApplication extends Application {
     public static LayoutInflater getLayoutInflater() {
         final Activity activity = StaticContextApplication.getCurrentActivity();
         if(null == activity) {
-            return null;
+            return (LayoutInflater) INSTANCE.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         } else {
             return activity.getLayoutInflater();
         }

@@ -47,12 +47,12 @@ public class AppProvider extends ContentProvider {
         matcher.addURI(authority, "chapters/*", CHAPTER);
         matcher.addURI(authority, "chapters/*/topics", TOPICS_IN_CHAPTER);
         
-        matcher.addURI(authority, "topics", TOPICS);
-        matcher.addURI(authority, "topics/*", TOPIC);
-        matcher.addURI(authority, "topics/*/contents", CONTENTS_IN_TOPIC);
+        matcher.addURI(authority, "topic", TOPICS);
+        matcher.addURI(authority, "topic/*", TOPIC);
+        matcher.addURI(authority, "topic/*/content", CONTENTS_IN_TOPIC);
         
-        matcher.addURI(authority, "contents", CONTENTS);
-        matcher.addURI(authority, "contents/*", CONTENT);
+        matcher.addURI(authority, "content", CONTENTS);
+        matcher.addURI(authority, "content/*", CONTENT);
         
         return matcher;
     }

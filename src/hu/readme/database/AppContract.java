@@ -13,13 +13,13 @@ public final class AppContract {
     
     public interface Tables {
         String CHAPTERS = "chapters";
-        String TOPICS = "topics";
+        String TOPICS = "topic";
         String CONTENT = "content";
         
-        String TOPICS_IN_CHAPTER = "topics " 
-                + "LEFT OUTER JOIN chapters ON topics.chapter_id=chapters._id";
+        String TOPICS_IN_CHAPTER = "topic " 
+                + "LEFT OUTER JOIN chapters ON topic.chapter_id=chapters._id";
         String CONTENT_IN_TOPIC = "content " 
-                + "LEFT OUTER JOIN topics ON content.topic_id=topics._id";
+                + "LEFT OUTER JOIN topic ON content.topic_id=topic._id";
     }
     
     public interface ChapterColumns extends BaseColumns {
@@ -44,7 +44,7 @@ public final class AppContract {
                 "vnd.android.cursor.item/vnd.readme.";
         
         public static String getId(Uri uri) {
-            return uri.getPathSegments().get(0);
+            return uri.getPathSegments().get(1);
         }
     }
     
@@ -56,6 +56,13 @@ public final class AppContract {
         public static final String CONTENT_TYPE = BASE_CONTENT_TYPE + Tables.CHAPTERS;
         public static final String ITEM_TYPE = BASE_ITEM_TYPE + Tables.CHAPTERS;
         
+        public static Uri buildTopicsUri(int chapterId) {
+            return CONTENT_URI.buildUpon()
+                    .appendPath(String.valueOf(chapterId))
+                    .appendPath("topics")
+                    .build();
+        }
+        
     }
     
     public static class Topics extends Base implements TopicColumns {
@@ -65,6 +72,13 @@ public final class AppContract {
         
         public static final String CONTENT_TYPE = BASE_CONTENT_TYPE + Tables.TOPICS;
         public static final String ITEM_TYPE = BASE_ITEM_TYPE + Tables.TOPICS;
+        
+        public static Uri buildContentUri(int topicId) {
+            return CONTENT_URI.buildUpon()
+                    .appendPath(String.valueOf(topicId))
+                    .appendPath("content")
+                    .build();
+        }
         
     }
     
