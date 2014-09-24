@@ -13,6 +13,16 @@ import android.widget.CursorTreeAdapter;
 import android.widget.TextView;
 
 public class ContentAdapter extends CursorTreeAdapter {
+	
+	private static final String[] TOPIC_PROJECTION = new String[] {
+		AppContract.Tables.TOPICS + "." + AppContract.Topics._ID,
+		AppContract.Tables.TOPICS + "." + AppContract.Topics.TITLE
+	};
+	
+	private static final String[] CONTENT_PROJECTION = new String[] {
+		AppContract.Tables.CONTENT + "." + AppContract.Contents._ID,
+		AppContract.Tables.CONTENT + "." + AppContract.Contents.CONTENT
+	};
     
     private LayoutInflater mInflater;
 
@@ -28,7 +38,7 @@ public class ContentAdapter extends CursorTreeAdapter {
     private static Cursor getGroupCursor(int chapterId) {
         return StaticContextApplication.getStaticContentResolver()
                 .query(AppContract.Chapters.buildTopicsUri(chapterId), 
-                        null, null, null, null);
+                		TOPIC_PROJECTION, null, null, null);
     }
 
     @Override
@@ -37,7 +47,7 @@ public class ContentAdapter extends CursorTreeAdapter {
         final int topicId = groupCursor.getInt(idCol);
         return StaticContextApplication.getStaticContentResolver()
                 .query(AppContract.Topics.buildContentUri(topicId), 
-                        null, null, null, null);
+                		CONTENT_PROJECTION, null, null, null);
     }
 
     @Override
@@ -48,11 +58,11 @@ public class ContentAdapter extends CursorTreeAdapter {
 
     @Override
     protected void bindGroupView(View view, Context context, Cursor cursor, boolean isExpanded) {
-        int titleCol = cursor.getColumnIndex(AppContract.Tables.TOPICS + "." + AppContract.Topics.TITLE);
-        final String title = cursor.getString(titleCol);
+    	final int id = cursor.getInt(0);
+        final String title = cursor.getString(1);
         
         final TextView textview = (TextView) view.findViewById(R.id.topic_title);
-        textview.setText(title);
+        textview.setText(String.format("%03d", id) + ". " + title);
     }
 
     @Override
@@ -64,8 +74,7 @@ public class ContentAdapter extends CursorTreeAdapter {
 
     @Override
     protected void bindChildView(View view, Context context, Cursor cursor, boolean isLastChild) {
-        int contentCol = cursor.getColumnIndex(AppContract.Contents.CONTENT);
-        final String content = cursor.getString(contentCol);
+        final String content = cursor.getString(1);
         
         final WebView webview = (WebView) view.findViewById(R.id.content_webview);
         webview.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
