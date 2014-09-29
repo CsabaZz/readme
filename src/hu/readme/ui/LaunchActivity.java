@@ -5,16 +5,16 @@ import hu.readme.R;
 import hu.readme.StaticContextApplication;
 import hu.readme.database.AppContract;
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class LaunchActivity extends Activity
+public class LaunchActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -34,8 +34,9 @@ public class LaunchActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launch);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
         mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        		fragmentManager.findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -47,9 +48,9 @@ public class LaunchActivity extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ChapterContentFragment.newInstance(position + 1))
+                .replace(R.id.container, TopicsFragment.newInstance(position + 1))
                 .commit();
     }
 

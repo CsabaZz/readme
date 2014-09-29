@@ -2,21 +2,22 @@
 package hu.readme.ui;
 
 import hu.readme.R;
-import hu.readme.adapters.ChapterCursorAdapter;
+import hu.readme.adapters.ChaptersAdapter;
+import hu.readme.adapters.SimpleCursorAdapter;
 import hu.readme.database.AppContract;
 import hu.readme.utils.LoaderUtils;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -27,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 /**
@@ -87,7 +87,7 @@ public class NavigationDrawerFragment extends Fragment implements LoaderManager.
             mFromSavedInstanceState = true;
         }
         
-        mCursorAdapter = new ChapterCursorAdapter(getActionBar().getThemedContext());
+        mCursorAdapter = new ChaptersAdapter(getActionBar().getThemedContext());
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
