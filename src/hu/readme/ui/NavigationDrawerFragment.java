@@ -122,6 +122,18 @@ public class NavigationDrawerFragment extends Fragment implements LoaderManager.
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
+    
+    public void openDrawer() {
+        if(mDrawerLayout != null) {
+            mDrawerLayout.openDrawer(mFragmentContainerView);
+        }
+    }
+    
+    public void closeDrawer() {
+        if(mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(mFragmentContainerView);
+        }
+    }
 
     /**
      * Users of this fragment must call this method to set up the navigation

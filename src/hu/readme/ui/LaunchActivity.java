@@ -44,6 +44,15 @@ public class LaunchActivity extends FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
+    
+    @Override
+    public void onBackPressed() {
+        if(mNavigationDrawerFragment.isDrawerOpen()) {
+            mNavigationDrawerFragment.closeDrawer();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {

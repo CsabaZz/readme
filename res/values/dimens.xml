@@ -12,5 +12,8 @@
 	
 	<dimen name="drawer_item_text_size">16sp</dimen>
 	<dimen name="drawer_item_height">48dp</dimen>
-
+	
+	<dimen name="normal_text_size">16sp</dimen>
+	<dimen name="large_text_size">18sp</dimen>
+	
 </resources>

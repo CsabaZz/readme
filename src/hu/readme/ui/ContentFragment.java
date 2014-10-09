@@ -12,13 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 public class ContentFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 	
 	private static final String[] CONTENT_PROJECTION = new String[] { 
 		AppContract.Tables.CONTENT + "." + AppContract.Contents._ID, 
+        AppContract.Tables.TOPICS + "." + AppContract.Topics._ID, 
+        AppContract.Tables.TOPICS + "." + AppContract.Topics.TITLE, 
 		AppContract.Tables.CONTENT + "." + AppContract.Contents.CONTENT
 	};
+	
+    private static final int COLUMN_NUMBER = 1;
+	private static final int COLUMN_TITLE = 2;
+    private static final int COLUMN_CONTENT = 3;
 	
 	private static final String BASE_EXTRA = ContentFragment.class + "::";
 	public static final String EXTRA_TOPIC_ID = BASE_EXTRA + "TopicId";
@@ -35,6 +42,7 @@ public class ContentFragment extends BaseFragment implements LoaderManager.Loade
 	private int mTopicId;
 	private Cursor mCursor;
 	
+	private TextView mTitleText;
 	private WebView mWebview;
 	
 	@Override
@@ -50,9 +58,20 @@ public class ContentFragment extends BaseFragment implements LoaderManager.Loade
 			Bundle savedInstanceState) {
 		final View contentView = inflater.inflate(R.layout.content, container, false);
         
+		mTitleText = (TextView) contentView.findViewById(R.id.content_title);
 		mWebview = (WebView) contentView.findViewById(R.id.content_webview);
         
 		return contentView;
+	}
+	
+	@Override
+	public void onDestroyView() {
+        getLoaderManager().destroyLoader(LoaderUtils.LOADER_CONTENTS);
+        
+	    mTitleText = null;
+	    mWebview = null;
+	    
+	    super.onDestroyView();
 	}
 	
 	@Override
@@ -94,7 +113,11 @@ public class ContentFragment extends BaseFragment implements LoaderManager.Loade
 		if(null == mCursor) {
 			mWebview.loadUrl("about:blank");
 		} else if(mCursor.moveToFirst()) {
-	        final String content = mCursor.getString(1);
+            final String number = mCursor.getString(COLUMN_NUMBER);
+            final String title = mCursor.getString(COLUMN_TITLE);
+		    mTitleText.setText(number + ". " + title);
+		    
+	        final String content = mCursor.getString(COLUMN_CONTENT);
 	        mWebview.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
 		}
 	}
